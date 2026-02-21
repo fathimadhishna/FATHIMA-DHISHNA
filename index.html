@@ -143,108 +143,98 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>
-  // ===== SIMPLE CIRCULAR SKILLS =====
-document.addEventListener('DOMContentLoaded', function() {
-  // Skill data - IMAGE PATHS ONLY
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ================= SKILLS DATA ================= */
   const skillsData = {
     technical: [
-      "Google Earth.png",
-      "QGISicon.png", 
-      "arcgisicon.png",
-      "globalmap.png",
-      "PPlogo.png",
-      "msw.png",
-      "excel.png"
+      { name: "Google Earth", img: "Google Earth.png" },
+      { name: "QGIS", img: "QGISicon.png" },
+      { name: "ArcGIS", img: "arcgisicon.png" },
+      { name: "Global Mapper", img: "globalmap.png" },
+      { name: "Python Programming", img: "PPlogo.png" },
+      { name: "MS Word", img: "msw.png" },
+      { name: "MS Excel", img: "excel.png" }
     ],
     soft: [
-      "comm.png",
-      "timemg.png",
-      "presentation.png",
-      "ad.png",
-      "creaa.png",
-      "decision.png"
+      { name: "Communication", img: "comm.png" },
+      { name: "Time Management", img: "timemg.png" },
+      { name: "Presentation Skills", img: "presentation.png" },
+      { name: "Adaptability", img: "ad.png" },
+      { name: "Creativity", img: "creaa.png" },
+      { name: "Decision Making", img: "decision.png" }
     ]
   };
 
-  // DOM elements
+  /* ================= DOM ELEMENTS ================= */
   const techBtn = document.getElementById('tech-btn');
   const softBtn = document.getElementById('soft-btn');
   const techCircle = document.getElementById('tech-circle');
   const softCircle = document.getElementById('soft-circle');
-  
-  // Function to arrange icons in a perfect circle
-  function arrangeInCircle(imagePaths, container) {
-    // Clear existing dots
-    const existingDots = container.querySelectorAll('.skill-dot');
-    existingDots.forEach(dot => dot.remove());
-    
-    const radius = 130; // Distance from center
+
+  /* ================= CIRCLE ARRANGEMENT ================= */
+  function arrangeInCircle(skills, container) {
+
+    // Remove old dots
+    container.querySelectorAll('.skill-dot').forEach(dot => dot.remove());
+
+    const radius = 130;
     const centerX = container.offsetWidth / 2;
     const centerY = container.offsetHeight / 2;
-    const total = imagePaths.length;
-    
-    // Calculate positions
-    imagePaths.forEach((imgPath, index) => {
-      // Calculate angle for this item
+    const total = skills.length;
+
+    skills.forEach((skill, index) => {
+
       const angle = (index / total) * Math.PI * 2;
-      
-      // Calculate position
-      const x = centerX + radius * Math.cos(angle) - 30; // 30 = half of dot size
+      const x = centerX + radius * Math.cos(angle) - 30;
       const y = centerY + radius * Math.sin(angle) - 30;
-      
-      // Create skill dot
+
       const dot = document.createElement('div');
       dot.className = 'skill-dot';
       dot.style.left = `${x}px`;
       dot.style.top = `${y}px`;
-      dot.innerHTML = `<img src="${imgPath}" alt="">`;
-      
-      // Add to container
+
+      dot.innerHTML = `
+        <img src="${skill.img}" alt="${skill.name}">
+        <span class="skill-tooltip">${skill.name}</span>
+      `;
+
       container.appendChild(dot);
-      
-      // Animate in with delay
+
       setTimeout(() => {
         dot.classList.add('active');
       }, 50 + index * 50);
     });
   }
-  
-  // Function to show specific skills circle
+
+  /* ================= SHOW SKILLS ================= */
   function showSkills(type) {
-    // Update buttons
+
     techBtn.classList.remove('active');
     softBtn.classList.remove('active');
-    
-    // Hide both circles
     techCircle.classList.remove('active');
     softCircle.classList.remove('active');
-    
-    // Show selected circle
+
     setTimeout(() => {
       if (type === 'technical') {
         techBtn.classList.add('active');
         techCircle.classList.add('active');
-        
-        // Arrange technical skills
         arrangeInCircle(skillsData.technical, techCircle);
       } else {
         softBtn.classList.add('active');
         softCircle.classList.add('active');
-        
-        // Arrange soft skills
         arrangeInCircle(skillsData.soft, softCircle);
       }
     }, 100);
   }
-  
-  // Initialize with technical skills
+
+  /* ================= INIT ================= */
   showSkills('technical');
-  
-  // Button event listeners
+
   techBtn.addEventListener('click', () => showSkills('technical'));
   softBtn.addEventListener('click', () => showSkills('soft'));
-  
-  // Handle window resize
+
+  /* ================= RESPONSIVE ================= */
   let resizeTimeout;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
@@ -256,8 +246,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 200);
   });
+
 });
 </script>
+
 
 
 
@@ -589,7 +581,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <p>GIS Analyst | Environmental Science & Botany graduate| Passionate research enthusiast in Ecology and Environment</p>
           <div class="home-buttons">
             <a href="#conferences" class="btn btn-primary">More <i class="fas fa-arrow-right"></i></a>
-            <a href="Fathima Dhishna GIS Analyst.pdf" download class="btn btn-download"><i class="fas fa-download"></i> Download CV</a>
+            <a href="FATHIMA DHISHNA Resume.pdf" download class="btn btn-download"><i class="fas fa-download"></i> Download CV</a>
           </div>
         </div>
         <div class="home-image">
@@ -612,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- Image 1 -->
         <div class="stacked-image active" data-content="content1">
           <div class="image-number">1</div>
-          <img src="c1.png" alt="GIS">
+          <img src="GIS Analyst.jpeg" alt="GIS">
           <div class="image-overlay">
             <div class="stack-title">GIS</div>
           </div>
@@ -703,14 +695,87 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <!-- Projects Grid with Individual Page Turn Cards -->
     <div class="projects-page-grid">
+    <!-- Project 1 -->
+      <div class="project-page-card">
+        <!-- Page Turn Book for Project 1 -->
+        <div class="page-turn-book" data-project="1">
+          <!-- Cover Page (Title with Background) -->
+          <div class="page cover-page active" style="background-image: linear-gradient(rgba(239, 245, 245, 0.8), rgba(164, 159, 156, 0.9)), url(GIS.png);">
+            <div class="page-content">
+              <div class="project-badge">01</div>
+              <div class="page-icon">
+                <!-- <i class="fas fa-star"></i> -->
+              </div>
+              <h3>Atlas Preparation of GIS Maps</h3>
+              
+              <div class="page-turn-hint">
+                <i class="fas fa-hand-point-right"></i>
+                <span>Click to turn page</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Content Page (Explanation) -->
+          <div class="page content-page" style="background-color: #dedbd2;">
+            <div class="page-content">
+              <button class="close-page" aria-label="Close page">
+                <i class="fas fa-times"></i>
+              </button>
+              
+              <div class="content-header">
+                <h3><i class="fas fa-calendar-alt"></i> Abstract</h3>
+                <span class="project-category">Project</span>
+              </div>
+              
+              <div class="content-body">
+                <div class="project-features">
+                  <h4><i class="fas fa-list-check"></i> Major works:</h4>
+                  <ul style="text-align: justify;">
+  <li>Developed an Atlas in A3 size with 20 maps depicting more than 100 types of Thematic maps using different spatial data inputs such as cadastral maps, toposheets, Google Imagery, GPS data, CAD data, LANDSAT data and other open source maps</li>
+  <li>Performed advanced geospatial analysis  related process like contour preparation, DEM and 3D visualisation, slope, aspect, hill shade, viewshed, Hydrology ( drainage and watershed), Network analysis and virtual GIS (flood, virtual city).</li>
+  <li>Experienced in Digital image processing techniques - Image rectification, subset and mosaic,classification, vectorisation on HRS, Preparation of NDVI, NDBI, NDWI, LST etc. </li>
+  <li>To compare the efficiencies of Electrochemical degradation and ozonation at optimal conditions</li>
+  <li>Customized web enable of GIS outputs for client use</li>
+</ul>
+
+                </div>
+                
+                <div class="tech-tags">
+                  <span class="tech-tag">ArcGIS</span>
+                  <span class="tech-tag">QGIS</span>
+                   <span class="tech-tag">Google Earth Pro</span>
+                  <span class="tech-tag">USGS Earth Explorer</span>
+                </div>
+              </div>
+              
+              <div class="page-nav-buttons">
+                <button class="page-nav-btn prev-page-btn">
+                  <i class="fas fa-chevron-left"></i> Back
+                </button>
+                <div class="page-indicator">
+                  <span class="current-page">1</span>/<span class="total-pages">2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Page Corner for Visual Effect -->
+          <div class="page-corner"></div>
+        </div>
+      </div>
+
+
+
+
+
       <!-- Project 1 -->
       <div class="project-page-card">
         <!-- Page Turn Book for Project 1 -->
         <div class="page-turn-book" data-project="1">
           <!-- Cover Page (Title with Background) -->
-          <div class="page cover-page active" style="background-image: linear-gradient(rgba(186, 240, 240, 0.8), rgba(250, 224, 209, 0.9)), url(leafearthlogo.png);">
+          <div class="page cover-page active" style="background-image: linear-gradient(rgba(239, 245, 245, 0.8), rgba(164, 159, 156, 0.9)), url(leafearthlogo.png);">
             <div class="page-content">
-              <div class="project-badge">01</div>
+              <div class="project-badge">02</div>
               <div class="page-icon">
                 <!-- <i class="fas fa-star"></i> -->
               </div>
@@ -763,7 +828,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <!-- Cover Page (Title with Background) -->
           <div class="page cover-page active" style="background-image: linear-gradient(rgba(246, 248, 248, 0.8), rgba(168, 164, 162, 0.9)), url(lab.jpg)">
             <div class="page-content">
-              <div class="project-badge">02</div>
+              <div class="project-badge">03</div>
               <div class="page-icon">
               </div>
               <h3>Comparison of Electrochemical oxidation and ozonation for the degradation of Propylparaben</h3>
@@ -832,7 +897,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <!-- Cover Page (Title with Background) -->
           <div class="page cover-page active" style="background-image: linear-gradient(rgba(245, 243, 243, 0.8), rgba(145, 143, 142, 0.9)), url('phytochem.jpg');">
             <div class="page-content">
-              <div class="project-badge">03</div>
+              <div class="project-badge">04</div>
               <div class="page-icon">
                 
               </div>
@@ -895,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
     </div>
-  </div>
+  
   
 </section>
 
@@ -1160,7 +1225,15 @@ document.addEventListener('DOMContentLoaded', function() {
           <br/> Oct 2025- Present</h3>
         <p>Utilized Advanced Geospatial technologies for spatial data analysis and research to support sustainable resource management.</p>
         <p><strong>Software Proficiency:</strong>ArcGIS, QGIS, ERDAS imagine</p>
-          <p><strong>Major works:</strong> Vectorisation, thematic mapping, literature collection and study, field survey for socio-economic studies,water quality reports and documentation, preparation of NDVI, NDWI, NDBI, LST using Landsat data </p>
+          <p><strong>Major works:</strong></p>
+            <ul style="text-align: justify; font-size: 14px;">
+    <li>Assisted in ongoing projects of CED such as Preparation of zonal master plan for eco sensitive zones of wildlife sanctuaries of Andra Pradesh and Heat hotspots mapping for urban areas using Landsat and Geospatial technologies.</li>
+    <li>Involved in vectorisation, thematic mapping, literature collection & study, field survey for socio-economic analysis, water quality reports and documentation.</li>
+    <li>Preparation of NDVI, NDWI, NDBI, LST using Landsat data</li>
+    <li>Map composition of Thematic maps required in the Project</li>
+</ul>
+
+        
       
       </div>
       
@@ -1237,7 +1310,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="hobby-card" data-hobby="bird-watching">
         <div class="hobby-card-inner">
           <div class="hobby-card-front">
-            <img src="bird-watching.jpg" alt="Bird Watching" class="hobby-image">
+            <img src="bw.jpeg" alt="Bird Watching" class="hobby-image">
             <div class="hobby-icon-overlay">
               <i class="fas fa-dove"></i>
             </div>
@@ -1258,7 +1331,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="hobby-card" data-hobby="tree-id">
         <div class="hobby-card-inner">
           <div class="hobby-card-front">
-            <img src="c5.png" alt="Plant Identification" class="hobby-image">
+            <img src="plant.jpg" alt="Plant Identification" class="hobby-image">
             <div class="hobby-icon-overlay">
               <i class="fas fa-tree"></i>
             </div>
@@ -1279,7 +1352,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="hobby-card" data-hobby="restoration">
         <div class="hobby-card-inner">
           <div class="hobby-card-front">
-            <img src="ecological-restoration.jpg" alt="Ecological Restoration" class="hobby-image">
+            <img src="Ecology.webp" alt="Ecological Restoration" class="hobby-image">
             <div class="hobby-icon-overlay">
               <i class="fas fa-seedling"></i>
             </div>
@@ -1300,7 +1373,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="hobby-card" data-hobby="photography">
         <div class="hobby-card-inner">
           <div class="hobby-card-front">
-            <img src="nature-photography.jpg" alt="Sustainability" class="hobby-image">
+            <img src="sus.webp" alt="Sustainability" class="hobby-image">
             <div class="hobby-icon-overlay">
               <i class="fas fa-camera"></i>
             </div>
@@ -1321,7 +1394,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="hobby-card" data-hobby="foraging">
         <div class="hobby-card-inner">
           <div class="hobby-card-front">
-            <img src="foraging.jpg" alt="Journaling" class="hobby-image">
+            <img src="journaling.jpg" alt="Journaling" class="hobby-image">
             <div class="hobby-icon-overlay">
               <i class="fas fa-leaf"></i>
             </div>
@@ -1375,7 +1448,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   </footer>
 
-  <script>
+  <!-- <script>
     // Contact Form Submission
     const contactForm = document.getElementById('contact-form');
     const formResponse = document.getElementById('form-response');
@@ -1827,6 +1900,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });         
-</script>
+</script> -->
+
+
+<script src="fix.js"></script>
+
 </body>
 </html>
